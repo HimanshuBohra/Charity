@@ -1,0 +1,5 @@
+1 . Save in database
+2 . carousel
+3 . display data properfly
+4 . make login/signup page
+
