@@ -1,3 +1,8 @@
+<?php
+    include("connection.php");
+    session_start();
+
+?>
 <!DOCTYPE html>
 	<html lang="zxx" class="no-js">
 	<head>
@@ -196,90 +201,90 @@
                     font-size: 13px;
                 }
                 #myImg {
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: 0.3s;
+                }
 
-#myImg:hover {opacity: 0.7;}
+                    #myImg:hover {opacity: 0.7;}
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
+                    /* The Modal (background) */
+                    .modal {
+                    display: none; /* Hidden by default */
+                    position: fixed; /* Stay in place */
+                    z-index: 1; /* Sit on top */
+                    padding-top: 100px; /* Location of the box */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow: auto; /* Enable scroll if needed */
+                    background-color: rgb(0,0,0); /* Fallback color */
+                    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+                    }
 
-/* Modal Content (image) */
-.modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
+                    /* Modal Content (image) */
+                    .modal-content {
+                    margin: auto;
+                    display: block;
+                    width: 80%;
+                    max-width: 700px;
+                    }
 
-/* Caption of Modal Image */
-#caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
+                    /* Caption of Modal Image */
+                    #caption {
+                    margin: auto;
+                    display: block;
+                    width: 80%;
+                    max-width: 700px;
+                    text-align: center;
+                    color: #ccc;
+                    padding: 10px 0;
+                    height: 150px;
+                    }
 
-/* Add Animation */
-.modal-content, #caption {  
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
+                    /* Add Animation */
+                    .modal-content, #caption {  
+                    -webkit-animation-name: zoom;
+                    -webkit-animation-duration: 0.6s;
+                    animation-name: zoom;
+                    animation-duration: 0.6s;
+                    }
 
-@-webkit-keyframes zoom {
-  from {-webkit-transform:scale(0)} 
-  to {-webkit-transform:scale(1)}
-}
+                    @-webkit-keyframes zoom {
+                    from {-webkit-transform:scale(0)} 
+                    to {-webkit-transform:scale(1)}
+                    }
 
-@keyframes zoom {
-  from {transform:scale(0)} 
-  to {transform:scale(1)}
-}
+                    @keyframes zoom {
+                    from {transform:scale(0)} 
+                    to {transform:scale(1)}
+                    }
 
-/* The Close Button */
-.close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
+                    /* The Close Button */
+                    .close {
+                    position: absolute;
+                    top: 15px;
+                    right: 35px;
+                    color: #f1f1f1;
+                    font-size: 40px;
+                    font-weight: bold;
+                    transition: 0.3s;
+                    }
 
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
+                    .close:hover,
+                    .close:focus {
+                    color: #bbb; 
+                    text-decoration: none;
+                    cursor: pointer;
+                    }
 
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .modal-content {
-    width: 100%;
-  }
-}
+                    /* 100% Image Width on Smaller Screens */
+                    @media only screen and (max-width: 700px){
+                        .modal-content {
+                            width: 100%;
+                        }
+                    }
                 </style>
                 <script>
                 $(document).ready(function(){
@@ -298,9 +303,14 @@
 							</div>
 							<div class="main-menubar d-flex align-items-center">
 								<nav class="hide">
-									<a href="index.html">Home</a>
+                                <a href="index.php">Home</a>
 									<a href="aboutus.html">About</a>
-									<a href="donate.html">Donate</a>
+                                    <a href="donate.php">Donate</a>
+                                    <?php
+										if(isset($_SESSION['user_id'])){
+											echo " <a href='logout.php'>Logout</a>";	
+										}
+									?>
 								</nav>
 								<div class="menu-bar"><span class="lnr lnr-menu"></span></div>
 							</div>
@@ -324,26 +334,41 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>							
-                                        <th>TimeStamp</th>
+                                        
                                         <th>Item Type</th>
-                                        <th>Message about Item</th>
+                                        <th>TimeStamp</th>
+                                        <th>Condition Of Item</th>
+                                        <th>Message about Items</th>
                                         <th>Images</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td>Name</td>
-                                        <td>Time Stamp</td>
-                                        <th>Item Type</th>
-                                        <td>Message about item</td>                        
-                                        <td>
-                                        <img id="myImg1" src="p1.jpg" alt="Snow" style="width:100%;max-width:300px" onClick="modalImg(this.id)">
-                                        <img id="myImg2" src="p1.jpg" alt="Snow" style="width:100%;max-width:300px" onClick="modalImg(this.id)">
-                                        <img id="myImg3" src="p1.jpg" alt="Snow" style="width:100%;max-width:300px" onClick="modalImg(this.id)">
-                                        <img id="myImg4" src="p1.jpg" alt="Snow" style="width:100%;max-width:300px" onClick="modalImg(this.id)">
-
-                                        </td>
+                                        <?php
+                                        $query = "select NGO , item_type , timestamp , photos , condition_of_item , message_about_item from donation where seen = 0";
+                                        $id = 1;
+                                        if($result = mysqli_query($con , $query)){
+                                            if(mysqli_num_rows($result)>0){
+                                                while($row = $result -> fetch_assoc()){
+                                                    echo "<tr>
+                                                    <td>".$id++."</td>
+                                                    <td>".$row['NGO']."</td>
+                                                    <td>".$row['item_type']."</td>
+                                                    <td>".$row['timestamp']."</td>
+                                                    <td>".$row['condition_of_item']."</td>
+                                                    <td>".$row['message_about_item']."</td>
+                                                    <td><img class='image".$id."' style='width:100px;height:100px;' src='".$row['photos']."' onClick = imageClick(this.id)></td>
+                                                    </tr>
+                                                    ";
+                                                }
+                                            }
+                                            else{
+                                                echo "<tr><th><h1>No New Donations</h1></th></tr>";
+                                            }
+                                        }
+                                        $sql = 'UPDATE donation SET seen=1 WHERE seen=0';
+                                        $result = mysqli_query($con , $sql); 
+                                        ?>
                                     </tr>
                                     
                                 </tbody>
@@ -366,28 +391,37 @@
                                     <tr>
                                     <th>#</th>
                                         <th>Name</th>							
-                                        <th>TimeStamp</th>
                                         <th>Item Type</th>
+                                        <th>TimeStamp</th>
+                                        <th>Condition Of Item</th>
                                         <th>Message about Item</th>
                                         <th>Images</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Name</td>
-                                        <td>Time Stamp</td>
-                                        <td>Item Type</td>
-                                        <td>Message about item</td>                        
-                                        <td> Active</td>
-                                    </tr>
-                                    
+                                <?php
+                                $query = "select NGO , item_type , timestamp , photos , condition_of_item , message_about_item from donation where seen = 1";
+                                        $id = 1;
+                                        if($result = mysqli_query($con , $query)){
+                                            while($row = $result -> fetch_assoc()){
+                                                echo "<tr>
+                                                <td>".$id++."</td>
+                                                <td>".$row['NGO']."</td>
+                                                <td>".$row['item_type']."</td>
+                                                <td>".$row['timestamp']."</td>
+                                                <td>".$row['condition_of_item']."</td>
+                                                <td>".$row['message_about_item']."</td>
+                                                <td><img id='prev".$id."' class='image".$id."' style='width:100px;height:100px;' src='".$row['photos']."' onClick = imageClick(this.id)></td>
+                                                </tr>
+                                                ";
+                                            }
+                                        }
+                                    ?> 
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>         
-                <!-- The Modal -->
                 <div id="myModal" class="modal">
                 <span class="close">&times;</span>
                 <img class="modal-content" id="img01">
@@ -409,11 +443,7 @@
 							<a href="#"><i class="fa fa-dribbble"></i></a>
 							<a href="#"><i class="fa fa-behance"></i></a>
 						</div>
-						<p class="footer-text m-0">
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</p>
+						
 					</div>
 				</div>
 			</footer>
@@ -430,11 +460,13 @@
 			<script src="js/jquery.magnific-popup.min.js"></script>
             <script src="js/main.js"></script>
             <script type="text/javascript">
-                // Get the modal
-            var modal = document.getElementById("myModal");
-                function modalImg(id){
+
+            function imageClick(id){
+                    // Get the modal
+                    var modal = document.getElementById("myModal");
+
                     // Get the image and insert it inside the modal - use its "alt" text as a caption
-                    var img = document.getElementById(id);
+                    var img = document.getElementById(""+id);
                     var modalImg = document.getElementById("img01");
                     var captionText = document.getElementById("caption");
                     img.onclick = function(){
@@ -447,10 +479,11 @@
                     var span = document.getElementsByClassName("close")[0];
 
                     // When the user clicks on <span> (x), close the modal
-                    span.onclick = function() { 
+                    modalImg.onclick = function() { 
                     modal.style.display = "none";
                     }
-                }
+            }
+            
             </script>            
 		</body>
 	</html>

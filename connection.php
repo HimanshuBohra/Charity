@@ -1,9 +1,9 @@
 <?php
-$mysqli = new mysqli("localhost","root","","charity");
+$con = new mysqli("localhost","root","","charity");
 
 // Check connection
-if ($mysqli -> connect_errno) {
-  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+if ($con -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $con -> connect_error;
   exit();
 }
 ?>
