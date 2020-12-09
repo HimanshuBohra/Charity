@@ -32,6 +32,10 @@
 			<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			<link rel="stylesheet" href="css/bootstrap.css">
 			<link rel="stylesheet" href="css/main.css">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		</head>
 		<body>
 
@@ -108,28 +112,53 @@
 								 		
 							 			
                                         <div class="col-lg-6 d-flex flex-column">
-                                            <select name="ngo" class="app-select form-control mt-20" required>
+                                            <select name="ngo" class="app-select form-control mt-20 " onchange="ngoItems(this)" required>
                                                <option data-display="NGO you want to donate to">NGO you want to donate to</option>
-                                               <option value="1">NGO 1</option>
-                                               <option value="2">NGO 2</option>
-                                               <option value="3">NGO 3</option>
+                                               <?php
+											   $ngo_urgent = [];
+											   $ngo_good = [];
+											   $query = "select ngo_name , good_to_have, urgently_needed from ngo";
+											   if($result = mysqli_query($con , $query)){
+												   $i=0;
+												if(mysqli_num_rows($result)>0){
+													while($row = $result -> fetch_assoc()){
+														echo "<option id=".$i." value=".$row['ngo_name'].">".$row['ngo_name']."</option>";
+														$ngo_urgent[$i] = $row['urgently_needed'];
+														$ngo_good[$i] = $row['good_to_have'];
+														$i++;
+													}
+												}
+											}
+											   ?>
                                            </select>
                                         </div>
                                         <div class="col-lg-6 d-flex flex-column">
-                                           <select name="type" class="app-select form-control mt-20" required>
+                                           <select size="2" name="type" class="app-select form-control mt-20" required>
                                               <option data-display="Type of Donation ">Type of Donation</option>
-                                              <option value="1">Food</option>
-                                              <option value="1">Furniture</option>
-                                              <option value="2">Cloths</option>
-                                              <option value="3">Shoes</option>
-                                              <option value="3">Electronics</option>
+                                              <option value="Food">Food</option>
+                                              <option value="Cloths">Cloths</option>
+                                              <option value="Shoes">Shoes</option>
+											  <option value="Fan">Fan</option>
+											  <option value="TV">Chair</option>
+											  <option value="Bed">Bed</option>
+											  <option value="Cabinet">Cabinet</option>
+											  <option value="Stool">Stool</option>
+											  <option value="Cushion">Cushion</option>
+											  <option value="Pillow">Pillow</option>
+											  <option value="Desk">Desk</option>
+											  <option value="Ladder">Ladder</option>
+											  <option value="Mirror">Mirror</option>
+											  <option value="Table">Table</option>
+											  <option value="Bedsheets">Bedsheets</option>
+											  <option value="Worktable">Worktable</option>
+
                                           </select>
                                        </div>
                                         <div class="col-lg-12 d-flex flex-column">
                                             <select name="condition" class="app-select form-control mt-20" required>
                                                <option data-display="Is the item ready to use">Condition</option>
-                                               <option value="1">Yes</option>
-                                               <option value="2">No</option>
+                                               <option value="Yes">Yes</option>
+                                               <option value="No">No</option>
                                            </select>
                                         </div>
 										<div class="col-lg-12 d-flex flex-column">
@@ -151,6 +180,33 @@
 				</div>
 			</section>
 			<!-- End donate Area -->
+			<div class="container">
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Items </h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
         <!-- start footer Area -->
 			<footer class="footer-area section-gap">
 				<div class="container">
@@ -184,4 +240,19 @@
 			<script src="js/jquery.magnific-popup.min.js"></script>
 			<script src="js/main.js"></script>
 		</body>
+		<script>
+			var ngo_urgent = <?php echo json_encode($ngo_urgent); ?>;
+			var ngo_good = <?php echo json_encode($ngo_good); ?>;
+			function ngoItems(s){
+					var id = s[s.selectedIndex].id;
+                    // Get the modal
+                    var modal = document.getElementById("myModal");
+                    var urgent = ngo_urgent[id].split(",");
+					var good = ngo_good[id].split(",");
+					$(".modal-body").html("<p style='color:red'><h3>Urgent Needed Items : </h3>"+urgent+"</p><br /> <h3>Good to Have Items : </h3>"+good);
+					$("#myModal").modal("show"); 
+                    // Get the <span> element that closes the modal
+                    var span = document.getElementsByClassName("close")[0];
+            }
+		</script>
 	</html>

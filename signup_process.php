@@ -9,6 +9,7 @@
             session_start();
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['user_name'] = $row['user_name'];
+            $_SESSION['user_email'] = $email_id;
             header("Location: donate.php");
         }
         else{
@@ -21,6 +22,7 @@
             $row = mysqli_fetch_assoc($result);
             $_SESSION['admin_id'] = $row['admin_id'];
             $_SESSION['admin_name'] = $row['admin_name'];
+            $_SESSION['user_email'] = $email_id;
             header("Location: admin_homepage.php");
         }
         else{

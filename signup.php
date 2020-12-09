@@ -12,8 +12,9 @@
         if($stmt->execute()){
             $_SESSION['id'] = $row['user_id'];
             $_SESSION['name'] = $row['user_name'];
+            $_SESSION['user_email'] = $email_id;
         }
-        header("Location: index.html");
+        header("Location: index.php");
     }
     
 ?>

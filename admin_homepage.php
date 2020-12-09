@@ -357,7 +357,7 @@
                                                     <td>".$row['timestamp']."</td>
                                                     <td>".$row['condition_of_item']."</td>
                                                     <td>".$row['message_about_item']."</td>
-                                                    <td><img class='image".$id."' style='width:100px;height:100px;' src='".$row['photos']."' onClick = imageClick(this.id)></td>
+                                                    <td><img id='image".$id."' class='image".$id."' style='width:100px;height:100px;' src='".$row['photos']."' onClick = imageClick(this.id)></td>
                                                     </tr>
                                                     ";
                                                 }
