@@ -337,6 +337,9 @@
                                         
                                         <th>Item Type</th>
                                         <th>TimeStamp</th>
+                                        <th>Made On</th>
+                                        <th>Expires On</th>
+                                        <th>People it can be Served</th>
                                         <th>Condition Of Item</th>
                                         <th>Message about Items</th>
                                         <th>Images</th>
@@ -345,7 +348,7 @@
                                 <tbody>
                                     <tr>
                                         <?php
-                                        $query = "select NGO , item_type , timestamp , photos , condition_of_item , message_about_item from donation where seen = 0";
+                                        $query = "select NGO , item_type , timestamp , made_on , expires_on , people_can_be_served , photos , condition_of_item , message_about_item from donation where seen = 0";
                                         $id = 1;
                                         if($result = mysqli_query($con , $query)){
                                             if(mysqli_num_rows($result)>0){
@@ -354,8 +357,18 @@
                                                     <td>".$id++."</td>
                                                     <td>".$row['NGO']."</td>
                                                     <td>".$row['item_type']."</td>
-                                                    <td>".$row['timestamp']."</td>
-                                                    <td>".$row['condition_of_item']."</td>
+                                                    <td>".$row['timestamp']."</td>";
+                                                    if($row['item_type'] == "Food"){
+                                                        echo "<td>".$row['made_on']."</td>
+                                                        <td>".$row['expires_on']."</td>
+                                                        <td>".$row['people_can_be_served']."</td>";
+                                                    }
+                                                    else{
+                                                        echo "<td>Not Applicable</td>
+                                                        <td>Not Applicable</td>
+                                                        <td>Not Applicable</td>";
+                                                    }
+                                                    echo "<td>".$row['condition_of_item']."</td>
                                                     <td>".$row['message_about_item']."</td>
                                                     <td><img id='image".$id."' class='image".$id."' style='width:100px;height:100px;' src='".$row['photos']."' onClick = imageClick(this.id)></td>
                                                     </tr>
@@ -393,6 +406,9 @@
                                         <th>Name</th>							
                                         <th>Item Type</th>
                                         <th>TimeStamp</th>
+                                        <th>Made On</th>
+                                        <th>Expires On</th>
+                                        <th>People it can be Served</th>
                                         <th>Condition Of Item</th>
                                         <th>Message about Item</th>
                                         <th>Images</th>
@@ -400,7 +416,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                $query = "select NGO , item_type , timestamp , photos , condition_of_item , message_about_item from donation where seen = 1";
+                                $query = "select NGO , item_type , timestamp , made_on , expires_on , people_can_be_served , photos , condition_of_item , message_about_item from donation where seen = 1";
                                         $id = 1;
                                         if($result = mysqli_query($con , $query)){
                                             while($row = $result -> fetch_assoc()){
@@ -408,8 +424,18 @@
                                                 <td>".$id++."</td>
                                                 <td>".$row['NGO']."</td>
                                                 <td>".$row['item_type']."</td>
-                                                <td>".$row['timestamp']."</td>
-                                                <td>".$row['condition_of_item']."</td>
+                                                <td>".$row['timestamp']."</td>";
+                                                if($row['item_type'] == "Food"){
+                                                    echo "<td>".$row['made_on']."</td>
+                                                    <td>".$row['expires_on']."</td>
+                                                    <td>".$row['people_can_be_served']."</td>";
+                                                }
+                                                else{
+                                                    echo "<td>Not Applicable</td>
+                                                    <td>Not Applicable</td>
+                                                    <td>Not Applicable</td>";
+                                                }
+                                                echo "<td>".$row['condition_of_item']."</td>
                                                 <td>".$row['message_about_item']."</td>
                                                 <td><img id='prev".$id."' class='image".$id."' style='width:100px;height:100px;' src='".$row['photos']."' onClick = imageClick(this.id)></td>
                                                 </tr>

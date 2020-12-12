@@ -36,6 +36,11 @@
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<style>
+				.made-expire{
+					display : none!important;
+				}
+			</style>
 		</head>
 		<body>
 
@@ -133,27 +138,36 @@
                                            </select>
                                         </div>
                                         <div class="col-lg-6 d-flex flex-column">
-                                           <select size="2" name="type" class="app-select form-control mt-20" required>
+                                           <select name="type" class="app-select form-control mt-20" onchange="checkFood(this)" required>
                                               <option data-display="Type of Donation ">Type of Donation</option>
-                                              <option value="Food">Food</option>
-                                              <option value="Cloths">Cloths</option>
-                                              <option value="Shoes">Shoes</option>
-											  <option value="Fan">Fan</option>
-											  <option value="TV">Chair</option>
-											  <option value="Bed">Bed</option>
-											  <option value="Cabinet">Cabinet</option>
-											  <option value="Stool">Stool</option>
-											  <option value="Cushion">Cushion</option>
-											  <option value="Pillow">Pillow</option>
-											  <option value="Desk">Desk</option>
-											  <option value="Ladder">Ladder</option>
-											  <option value="Mirror">Mirror</option>
-											  <option value="Table">Table</option>
-											  <option value="Bedsheets">Bedsheets</option>
-											  <option value="Worktable">Worktable</option>
+                                              <option id="0" value="Food">Food</option>
+                                              <option id="1" value="Cloths">Cloths</option>
+                                              <option id="2" value="Shoes">Shoes</option>
+											  <option id="3" value="Fan">Fan</option>
+											  <option id="4" value="TV">Chair</option>
+											  <option id="5" value="Bed">Bed</option>
+											  <option id="6" value="Cabinet">Cabinet</option>
+											  <option id="7" value="Stool">Stool</option>
+											  <option id="8" value="Cushion">Cushion</option>
+											  <option id="9" value="Pillow">Pillow</option>
+											  <option id="10" value="Desk">Desk</option>
+											  <option id="11" value="Ladder">Ladder</option>
+											  <option id="12" value="Mirror">Mirror</option>
+											  <option id="13" value="Table">Table</option>
+											  <option id="14" value="Bedsheets">Bedsheets</option>
+											  <option id="15" value="Worktable">Worktable</option>
 
                                           </select>
                                        </div>
+									   <div id="made" class="col-lg-6 d-flex flex-column made-expire">
+									   <input name="made" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" max="<?php echo date("Y-m-d"); ?>" class="form-control mt-20" name="message" placeholder="When was the Item Made">
+                                       </div>
+                                        <div id="expire" class="col-lg-6 d-flex flex-column made-expire">
+											<input name="expire" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" min="<?php echo date("Y-m-d"); ?>" class="form-control mt-20" name="message" placeholder="When will the item expire">
+                                        </div>
+										<div id="people" class="col-lg-12 d-flex flex-column made-expire">
+											<input name="people" type="text" name="people" class="form-control mt-20" name="message" placeholder="How many People can it serve (People)">
+                                        </div>
                                         <div class="col-lg-12 d-flex flex-column">
                                             <select name="condition" class="app-select form-control mt-20" required>
                                                <option data-display="Is the item ready to use">Condition</option>
@@ -240,7 +254,7 @@
 			<script src="js/jquery.magnific-popup.min.js"></script>
 			<script src="js/main.js"></script>
 		</body>
-		<script>
+		<script>	
 			var ngo_urgent = <?php echo json_encode($ngo_urgent); ?>;
 			var ngo_good = <?php echo json_encode($ngo_good); ?>;
 			function ngoItems(s){
@@ -254,5 +268,18 @@
                     // Get the <span> element that closes the modal
                     var span = document.getElementsByClassName("close")[0];
             }
+			function checkFood(s){
+				var id = s[s.selectedIndex].id;
+				if(id == "0"){ 
+					$("#made").attr('class','col-lg-6 d-flex flex-column');
+					$("#expire").attr('class','col-lg-6 d-flex flex-column');
+					$("#people").attr('class','col-lg-6 d-flex flex-column');
+				}
+				else{
+					$("#made").attr('class','col-lg-6 d-flex flex-column made-expire');
+					$("#expire").attr('class','col-lg-6 d-flex flex-column made-expire');
+					$("#people").attr('class','col-lg-6 d-flex flex-column made-expire');
+				}
+			}
 		</script>
 	</html>
